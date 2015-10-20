@@ -7,11 +7,11 @@ import scala.math.BigInt
  */
 object Fibonacci {
 
-  def fib(n: Int): Int = {
-    if (n == 0)
-      0
-    else if (n == 1)
-      1
+  def fib(n: Int):Int = {
+    //TODO: Make function tail recursive (defer to helper generator for Fibonacci sequence and get last number)
+    assert(n >= 0)
+    if ((n == 0) || (n == 1))
+      n
     else
       fib(n - 2) + fib(n - 1)
   }

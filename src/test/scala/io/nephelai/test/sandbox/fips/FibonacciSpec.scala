@@ -1,23 +1,18 @@
 package io.nephelai.test.sandbox.fips
 
-import io.nephelai.sandbox.fpis.Fibonacci
+import io.nephelai.sandbox.fpis.Fibonacci.fib
+import org.scalacheck.Prop.{forAll, BooleanOperators}
+import org.scalacheck.{Gen, Properties}
 
 /**
  * Created by teddyphreak on 9/17/15.
  */
-object FibonacciSpec extends org.specs2.mutable.Specification {
+object FibonacciSpec extends Properties("Fibonacci") {
 
-  "Fibonacci specification" >> {
-    "fib(0) must be 0" >> {
-      Fibonacci.fib(0) must_== 0
-    }
-    "fib(1) must be 1" >> {
-      Fibonacci.fib(1) must_== 1
-    }
-    "fib(n) must be fib(n-1) + fib(n-2)" >> {
-      Fibonacci.fib(5) must_== Fibonacci.fib(4) + Fibonacci.fib(3)
-    }
+  property("fib(0)") = { fib(0) == 0 }
 
-  }
+  property("fib(1)") = { fib(1) == 1 }
+
+  property("fib(n)") = forAll(Gen.choose(2, 30)) { (n:Int) => (n >= 2 && n <= 10) ==> (fib(n) == fib(n - 1) + fib(n - 2)) }
 
 }
