@@ -8,7 +8,7 @@ import io.nephelai.sandbox.fpis.List.{isSorted, tail, setHead, dropWhile, init, 
 /**
  * Created by teddyphreak on 9/26/15.
  */
-class ListsSpec extends Properties("List") {
+object ListsSpec extends Properties("List") {
 
   property("isSorted(Nil)") = isSorted[Int](Nil, (a, b) => a <= b) == true
 

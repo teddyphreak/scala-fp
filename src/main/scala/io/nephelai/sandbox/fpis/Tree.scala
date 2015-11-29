@@ -9,20 +9,17 @@ case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 
 object Tree {
 
-
   def size[A](t: Tree[A]): Int = fold(t)(
     v => 1
   )(
     (l, r) => 1 + size(l) + size(r)
   )
 
-
   def max[A](t: Tree[A])(implicit n: Numeric[A]): A = fold(t)(
     identity
   )(
     (l, r) => n.max(max(l), max(r))
   )
-
 
   def depth[A](t: Tree[A]): Int = fold(t)(
     v => 1
