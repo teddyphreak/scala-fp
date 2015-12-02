@@ -3,7 +3,7 @@ package io.nephelai.test.sandbox.fips
 import org.scalacheck.Properties
 import org.scalacheck.Prop.forAll
 import io.nephelai.sandbox.fpis.Math.{mean, variance}
-import io.nephelai.sandbox.fpis.{Some, None}
+import io.nephelai.sandbox.fpis.{Some => Algo, None => Nada}
 
 import scala.collection.immutable.Stream.Empty
 
@@ -14,15 +14,15 @@ object MathSpec extends Properties("Math") {
 
   property("mean(x") = forAll { (x: List[Double]) =>
     x match {
-      case Nil => mean(x) == None()
-      case l => mean(l) == Some(l.reduce(_ + _) / l.length)
+      case Nil => mean(x) == Nada()
+      case l => mean(l) == Algo(l.sum / l.length)
     }
   }
 
   property("variance(x)") = forAll { (a: List[Double]) =>
     a match {
-      case Nil => variance(a) == None()
-      case l => variance(a) == Some(l.map(x => math.pow(x - (l.sum / l.length), 2)).sum)
+      case Nil => variance(a) == Nada()
+      case l => variance(a) == Algo(l.map(x => math.pow(x - (l.sum / l.length), 2)).sum)
     }
   }
 
