@@ -28,3 +28,14 @@ sealed trait Option[+A] {
 
 case class Some[A](x: A) extends Option[A]
 case class None[A]() extends Option[A]
+
+object Option {
+
+  def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
+    for {
+      x <- a
+      y  <- b
+    } yield f(x, y)
+  }
+
+}

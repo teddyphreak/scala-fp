@@ -19,9 +19,7 @@ object Math {
 
   def variance(xs: Seq[Double]): Opcion[Double] = xs match {
     case Nil => Nada()
-    case s => mean(s) match {
-      case n @ Nada() => n
-      case Algo(m) => Algo(xs.map(x => x - m).map(x => math.pow(x, 2)).foldLeft(0.0)(_ + _))
-    }
+    case s => mean(s).flatMap(m => Algo(xs.map(x => x - m).map(x => math.pow(x, 2)).foldLeft(0.0)(_ + _)))
   }
+
 }

@@ -1,7 +1,8 @@
 package io.nephelai.test.sandbox.fips
 
 import io.nephelai.sandbox.fpis.{Some, None}
-import org.scalacheck.Prop.{forAll}
+import io.nephelai.sandbox.fpis.Option.map2
+import org.scalacheck.Prop.forAll
 import org.scalacheck.{Arbitrary, Gen, Properties}
 
 /**
@@ -44,5 +45,12 @@ object OptionSpec extends Properties("Option") {
       case false => Some(x).filter(f) == None()
     }
     None().filter(f) == None()
+  }
+
+  property("map2(a, b)(f)") = forAll { (x: Int, y: Double, f: (Int, Double) => Double) =>
+    map2(None(), None())(f) == None()
+    map2(None(), Some(y))(f) == None()
+    map2(Some(x), None())(f) == None()
+    map2(Some(x), Some(y))(f) == Some(f(x, y))
   }
 }
