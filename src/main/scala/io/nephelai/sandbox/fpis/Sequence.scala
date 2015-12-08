@@ -7,7 +7,7 @@ import io.nephelai.sandbox.fpis.Option.map2
   */
 object Sequence {
 
-  def sequence[A](a: Seq[Option[A]]): Option[Seq[A]] = a.foldLeft(Some(Nil): Option[List[A]])((a, b) => map2(a, b)( (x, y) => y :: x))
+  def sequence[A](a: Seq[Option[A]]): Option[Seq[A]] = a.foldRight(Some(Nil): Option[Seq[A]])((a, b) => map2(a, b)( (x, y) => x +: y))
 
 }
 
